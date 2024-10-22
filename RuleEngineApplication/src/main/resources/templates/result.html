@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rule Result</title>
+    <link rel="stylesheet" type="text/css" href="/result.css"> <!-- Ensure the correct path -->
+</head>
+<body>
+    <div class="container">
+        <h1>Rule Creation Result</h1>
+        <p th:text="${resultMessage}"></p> <!-- This will display the rule creation message -->
+
+        <h2>AST Representation</h2>
+        <pre th:text="${astRepresentation}"></pre> <!-- This will show the AST as JSON -->
+
+        <a href="/" th:href="@{/}">Go Back</a> <!-- Go Back link at the bottom -->
+    </div>
+</body>
+</html>

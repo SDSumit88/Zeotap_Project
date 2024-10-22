@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rule Engine - Create Rule</title>
+    <link rel="stylesheet" href="/styles.css"/>
+	<script>
+	        // Function to show or hide messages
+	        function showMessage(message, type) {
+				const messageDiv = document.getElementById('message');
+				           messageDiv.innerText = message;
+				           messageDiv.style.color = type === 'error' ? 'red' : 'green';
+				           messageDiv.style.display = 'block'; // Show the message div
+	        }
+			function validateInputs() {
+			    const ruleStringEvaluate = document.getElementById('ruleStringEvaluate').value;
+			    const age = document.getElementById('age').value;
+			    const department = document.getElementById('department').value;
+				console.log(`Department input: ${department}`); 
+			    const salary = document.getElementById('salary').value;
+			    const experience = document.getElementById('experience').value;
+
+			    // Reset any previous messages
+			    showMessage('', '');
+
+			    // Validation checks
+			    if (ruleStringEvaluate.trim() === '') {
+			        showMessage('Rule string to evaluate cannot be empty!', 'error');
+			        return false;
+			    } else if (!ruleStringEvaluate.match(/AND|OR/)) {
+			        showMessage('Rule must contain at least one logical operator (AND/OR)!', 'error');
+			        return false;
+			    }
+
+			    // Age validation
+			    if (!/^\d+$/.test(age) || age < 0) {
+			        showMessage('Age must be a positive number!', 'error');
+			        return false;
+			    }
+
+			    // Department validation (only letters and spaces)
+			    if (!/^[a-zA-Z\s]+$/.test(department)) {
+			        showMessage('Department can only contain letters and spaces!', 'error');
+			        return false;
+			    }
+
+			    // Salary validation
+			    if (!/^\d+$/.test(salary) || salary < 0) {
+			        showMessage('Salary must be a positive number!', 'error');
+			        return false;
+			    }
+
+			    // Experience validation
+			    if (!/^\d+$/.test(experience) || experience < 0) {
+			        showMessage('Experience must be a positive number!', 'error');
+			        return false;
+			    }
+
+			    return true; // All validations passed
+			}
+
+			       // Submit the form after validation
+				   function handleEvaluateRule(event) {
+				             if (!validateInputs()) {
+				                 event.preventDefault(); // Prevent submission if validation fails
+				             }
+				         }
+			     
+			async function evaluateRule(event) {
+			           event.preventDefault(); // Prevent the default form submission
+
+			           const ruleStringEvaluate = document.getElementById('ruleStringEvaluate').value;
+			           const age = document.getElementById('age').value;
+			           const department = document.getElementById('department').value;
+			           const salary = document.getElementById('salary').value;
+			           const experience = document.getElementById('experience').value;
+
+			           const response = await fetch('/rules/evaluate', {
+			               method: 'POST',
+			               headers: {
+			                   'Content-Type': 'application/x-www-form-urlencoded'
+			               },
+			               body: new URLSearchParams({
+			                   ruleStringEvaluate,
+			                   age,
+			                   department,
+			                   salary,
+			                   experience
+			               })
+			           });
+
+			           const resultData = await response.json();
+			           const messageDiv = document.getElementById('message');
+			           
+			           if (!resultData.success) {
+			               messageDiv.innerText = resultData.message; // Display the error message
+			               messageDiv.style.color = 'red';
+			           } else {
+			               messageDiv.innerText = "Evaluation result: " + resultData.result; // Display true or false
+			               messageDiv.style.color = 'green';
+			           }
+			           messageDiv.style.display = 'block'; // Show the message div
+			       }
+	    </script>
+</head>
+<body>
+		
+    <h1>Rule Engine: Create & Evaluate Rules</h1>
+
+    <!-- Error message -->
+    <div id="errorMessage" th:text="${errorMessage}" style="color:red;"></div>
+    
+    <!-- Success message -->
+    <div id="successMessage" th:text="${successMessage}" style="color:green;"></div>
+
+    <!-- Form to Create Rule -->
+    <form th:action="@{/rules/create}" method="post" onsubmit="validateForm(event)">
+        <label for="ruleString">Enter Rule:</label><br>
+        <input type="text" id="ruleString" name="ruleString" placeholder="((age > 30 AND department = 'Sales') ..." required><br><br>
+
+        <input type="submit" value="Create Rule">
+    </form>
+    
+    <br>
+
+	<!-- Form to Evaluate Rule -->
+	<form th:action="@{/rules/evaluate}" method="post" onsubmit="handleEvaluateRule(event)">
+	    <label for="ruleStringEvaluate">Rule String to Evaluate:</label><br>
+	    <input type="text" id="ruleStringEvaluate" name="ruleStringEvaluate" placeholder="((age > 30 AND ..." required><br><br>
+
+	    <label for="age">Age:</label><br>
+	    <input type="number" id="age" name="age" min="0" required><br><br>
+
+		<label for="department">Department:</label><br>
+	    <input type="text" id="department" name="department" required><br><br>
+		
+	    <label for="salary">Salary:</label><br>
+	    <input type="number" id="salary" name="salary" required><br><br>
+
+	    <label for="experience">Experience (Years):</label><br>
+	    <input type="number" id="experience" name="experience" required><br><br>
+
+	    <input type="submit" value="Evaluate Rule">
+	</form>
+
+</body>
+</html>
