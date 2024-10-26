@@ -115,7 +115,7 @@ Before you begin, ensure you have the following installed on your machine:
 OR **Clone the Repository**:(another way to clone)
 1. Go to File > Import.
 2. Select Git > Projects from Git and click Next.
-3. Choose Clone URI :  https://github.com/yourusername/rule-engine.git  (enter this url to clone ) and click Next.
+3. Choose Clone URI :  https://github.com/SDSumit88/rule-engine.git  (enter this url to clone ) and click Next.
 4. Enter the repository URI and your credentials, then select the branches you want to clone.
 
  
