@@ -157,8 +157,7 @@ spring.jpa.hibernate.ddl-auto=update
   - Enter spring-boot:run in the Goals field and click Run.
 
 2.Access the Application
-Once the application is running, you can access it in your web browser at:
-http://localhost:8080         ****( 8080 IS PORT NUMBER - you have to modify the port number according to your application working on which port)***
+Once the application is running, you can access it in your web browser at: **(http://localhost:8081)**       
 (Ensure to modify the port number if your application uses a different one.)
 
 
