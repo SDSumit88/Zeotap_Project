@@ -109,7 +109,7 @@ Before you begin, ensure you have the following installed on your machine:
    - In the **Git Repositories** view, click on the `Clone a Git repository` button.
    - Enter the repository URL:
      ```plaintext
-             --->  https://github.com/yourusername/rule-engine.git
+             --->  https://github.com/SDSumit88/rule-engine.git
      ```
    - Select the branches you want to clone and click `Next`. 
 OR **Clone the Repository**:(another way to clone)
