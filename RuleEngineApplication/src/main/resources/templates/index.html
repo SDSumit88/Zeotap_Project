@@ -4,9 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
-    
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+
+        .redirect-container {
+            text-align: center;
+            padding: 20px 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            margin: 20px auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #333;
+            border-top: 4px solid #0077cc;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Link styling */
+        .redirect-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #0077cc;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .redirect-link:hover {
+            background-color: #005f99;
+        }
+
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
 </head>
 <body>
-    <p>If you are not redirected automatically, follow this <a href="/home">link to home</a>.</p>
+    <div class="redirect-container">
+        <h1>Redirecting...</h1>
+        <div class="spinner"></div>
+        <p>If you are not redirected automatically, follow this 
+           <a href="/home" class="redirect-link">link to home</a>.
+        </p>
+    </div>
 </body>
 </html>
